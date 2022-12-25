@@ -35,20 +35,23 @@ const Register = () => {
               displayName,
               photoURL: downloadURL,
             });
-
+            console.log('update ok');
+            
             //create user on firestore
-            // await setDoc(doc(db, "users", res.user.uid), {
-            //   uid: res.user.uid,
-            //   displayName,
-            //   email,
-            //   photoURL: downloadURL,
-            // });
+            await setDoc(doc(db, "users", res.user.uid), {
+              uid: res.user.uid,
+              displayName,
+              email,
+              photoURL: downloadURL,
+            });
 
-            // console.log('test2');
+            console.log('users ok');
 
 
             // //create empty user chats on firestore
-            // await setDoc(doc(db, "userChats", res.user.uid), {});
+            await setDoc(doc(db, "userChats", res.user.uid), {});
+
+            console.log('userchats ok');
 
             navigate("/");
 
