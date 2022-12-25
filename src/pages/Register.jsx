@@ -27,6 +27,7 @@ const Register = () => {
       const date = new Date().getTime();
       const storageRef = ref(storage, `${displayName + date}`);
 
+      //veritabanına yazmak için firestore rules içerisinde write: true olması gerekiyor!!!
       await uploadBytesResumable(storageRef, file).then(() => {
         getDownloadURL(storageRef).then(async (downloadURL) => {
           try {
@@ -35,7 +36,6 @@ const Register = () => {
               displayName,
               photoURL: downloadURL,
             });
-            console.log('update ok');
             
             //create user on firestore
             await setDoc(doc(db, "users", res.user.uid), {
@@ -45,13 +45,8 @@ const Register = () => {
               photoURL: downloadURL,
             });
 
-            console.log('users ok');
-
-
             // //create empty user chats on firestore
             await setDoc(doc(db, "userChats", res.user.uid), {});
-
-            console.log('userchats ok');
 
             navigate("/");
 
